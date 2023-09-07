@@ -5,15 +5,25 @@ using UnityEngine;
 public class Polisbeteende : MonoBehaviour
 {
 
-    public GameObject player;
-    private Vector3 offset;
+    Transform target;
+
+    float time = 0;
+
     void Start()
     {
-        offset = transform.position - player.transform.position;
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
     }
 
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        Vector3 position = transform.position;
+        
+        time += Time.deltaTime;
+        
+        Vector3 direction = target.position - transform.position;
+        direction.Normalize();
+        transform.position += direction * Time.deltaTime;
+
     }
 }
